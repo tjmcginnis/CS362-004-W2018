@@ -1,1 +1,1 @@
-My name is Tyler McGinnis, mcginnit
+This is my assignment-1 submission!
