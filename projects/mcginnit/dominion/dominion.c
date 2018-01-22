@@ -653,7 +653,7 @@ int adventurerCard(struct gameState *state, int currentPlayer, int *cardDrawn)
     if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
       shuffle(currentPlayer, state);
     }
-    drawCard(currentPlayer, state);
+    /** BUG: Remove call to drawCard **/
     cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-1];//top card of hand is most recently drawn card.
     if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold)
       drawntreasure++;
@@ -679,8 +679,7 @@ int smithyCard(struct gameState *state, int currentPlayer, int handPos)
     drawCard(currentPlayer, state);
   }
 
-  //discard card from hand
-  discardCard(handPos, currentPlayer, state, 0);
+  /** BUG: Remove call to discardCard **/
   return 0;
 }
 
@@ -700,7 +699,7 @@ int councilRoomCard(struct gameState *state, int currentPlayer, int handPos)
 {
   int i;
 
-  for (i = 0; i < 4; i++)
+  for (i = 0; i < 5; i++)  /** BUG: Change i < 4 to i < 5**/
   {
     drawCard(currentPlayer, state);
   }
@@ -733,7 +732,7 @@ int remodelCard(struct gameState *state, int currentPlayer, int choice1, int cho
     return -1;
   }
 
-  gainCard(choice2, state, 0, currentPlayer);
+  /** BUG: remove call to gainCard **/
 
   //discard card from hand
   discardCard(handPos, currentPlayer, state, 0);
