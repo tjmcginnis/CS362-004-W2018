@@ -5,14 +5,37 @@
 
 char inputChar()
 {
-    // TODO: rewrite this function
-    return ' ';
+    /**
+     * Since we have the constraint of testme reaching
+     * the error case in less than 5 minutes, the
+     * input pool should be limited.
+     *
+     * I chose an input pool containing only the
+     * characters that appear in the conditional 
+     * statements in testme, since that would
+     * guarantees full statement coverage,
+     * but also increases the chances of
+     * testme reaching the error case
+     * in less than 5 minutes
+     */
+    char *input_pool = "[{({ ax})]rest";
+    return input_pool[rand() % strlen(input_pool)];
 }
 
 char *inputString()
 {
-    // TODO: rewrite this function
-    return "";
+    /**
+     * generate a random 5 character string using
+     * inputChar.
+     */
+    int i;
+    static char s[6] = "abcde\0";
+
+    for (i = 0; i < 5; i++) {
+      s[i] = inputChar();
+    }
+
+    return s;
 }
 
 void testme()
