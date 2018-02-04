@@ -15,7 +15,7 @@
  * Side effects:
  *  None
  *
- * What to test:
+ * Test Cases:
  *  The resulting array contains the 10 cards given as
  *   arguments to kingdomCards. Position actually does
  *   not seem to matter.
@@ -33,7 +33,7 @@ int array_contains (int* haystack, int needle, int haystackSize) {
     return 0;
 }
 
-int test_kingdomCards () {
+int testKingdomCards () {
      // For the purpose of testing kingdomCards, we can
      // simulate the cards with regular 
     int cards[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -88,6 +88,6 @@ int test_kingdomCards () {
 }
 
 int main (int argc, char** argv) {
-    test_kingdomCards();
+    testKingdomCards();
     return 0;
 }
