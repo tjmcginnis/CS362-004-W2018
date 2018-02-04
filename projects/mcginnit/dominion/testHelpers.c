@@ -99,26 +99,3 @@ int checkIdenticalGameStates (struct gameState *first, struct gameState *second)
     return 1;
 }
 
-// set up only whats needed for all tests
-void makeTestGameState (struct gameState *state) {
-    int numPlayers = 2;
-    state->numPlayers = numPlayers;
- 
-    // set up player decks
-    int i, j;
-    for (i = 0; i < numPlayers; i++) {
-        state->deckCount[i] = 0;
-        for (j = 0; j < 3; j++) {
-            state->deck[i][j] = estate;
-            state->deckCount[i]++;
-        }
-        for (j = 3; j < 10; j++) {
-            state->deck[i][j] = copper;
-            state->deckCount[i]++;
-        }
-    }
-
-    // set current phase to the action phase
-    state->phase = 0;
-    state->numActions = 1;
-}

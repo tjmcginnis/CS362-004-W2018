@@ -31,7 +31,9 @@
 void testSmithy () {
     printf("----- TESTING SMITHY -----\n");
     struct gameState G;
-    makeTestGameState(&G);
+    int k[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse,
+           sea_hag, tribute, smithy};
+    initializeGame(2, k, 10, &G);
 
     int i;
     int player = 0;

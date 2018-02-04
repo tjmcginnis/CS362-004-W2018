@@ -5,6 +5,5 @@
 
 void test(int result, char* test, char* description);
 int checkIdenticalGameStates (struct gameState *first, struct gameState *second);
-void makeTestGameState (struct gameState *state);
 
 #endif
