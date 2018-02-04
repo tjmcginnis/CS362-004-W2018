@@ -12,7 +12,7 @@
  * Side effects:
  *  None
  *
- * What to test:
+ * Test Cases:
  *  whoseTurn returns the correct value
  *  whoseTurn makes no changes are made to the game state
  */
@@ -39,6 +39,7 @@ void testWhoseTurn () {
         printf("whoseTurn(): PASS returns 0 when no turns have been taken\n");
     } else {
         printf("whoseTurn(): FAIL returns 0 when no turns have been taken\n");
+        failures++;
     }
 
     G.whoseTurn = 1;
@@ -48,6 +49,7 @@ void testWhoseTurn () {
         printf("whoseTurn(): PASS returns 1 when whoseTurn set to 1\n");
     } else {
         printf("whoseTurn(): FAIL returns 1 when whoseTurn set to 1\n");
+        failures++;
     }
 
     // Set whoseTurn back to 0 before comparing original game state
@@ -58,6 +60,7 @@ void testWhoseTurn () {
         printf("whoseTurn(): PASS no game state modified\n");
     } else {
         printf("whoseTurn(): FAIL game state modified\n");
+        failures++;
     }
 
     if (!failures)
