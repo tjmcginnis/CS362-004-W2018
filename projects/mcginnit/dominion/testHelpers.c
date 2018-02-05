@@ -4,11 +4,40 @@
 
 
 // Run a test
-void test(int result, char* test, char* description) {
+void test (int result, char* test, char* description) {
     if (result)
         printf("%s: PASS -- %s\n", test, description);
     else
         printf("%s: FAIL -- %s\n", test, description);
+}
+
+// Resets the deck, hand, discard pile, numActions, and coins
+void cleanUp (struct gameState *original, struct gameState *copy, int player) {
+    int i;
+
+    // Reset the deck
+    for (i = 0; i < original->deckCount[player]; i++) {
+        original->deck[player][i] = copy->deck[player][i];
+    } 
+    original->deckCount[player] = copy->deckCount[player];
+
+    // Reset the hand
+    for (i = 0; i < original->handCount[player]; i++) {
+        original->hand[player][i] = copy->hand[player][i];
+    }
+    original->handCount[player] = copy->handCount[player];
+
+    // Reset the discard pile
+    for (i = 0; i < original->discardCount[player]; i++) {
+        original->discard[player][i] = copy->discard[player][i];
+    }
+    original->discardCount[player] = copy->discardCount[player];
+    
+    // Reset numActions
+    original->numActions = copy->numActions;
+
+    // Reset coins
+    original->coins = copy->coins;
 }
 
 // Check two game states are identical

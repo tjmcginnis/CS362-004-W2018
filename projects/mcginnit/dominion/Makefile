@@ -56,12 +56,13 @@ cardtest3: cardtest3.c dominion.o rngs.o testHelpers.o
 cardtest4: cardtest4.c dominion.o rngs.o testHelpers.o
 	gcc -o cardtest4 -g cardtest4.c dominion.o rngs.o testHelpers.o $(CFLAGS)
 
-unittestresults.out: unittest1 unittest2 unittest3 unittest4 cardtest1
+unittestresults.out: unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2
 	./unittest1 &> unittestresults.out
 	./unittest2 &>> unittestresults.out
 	./unittest3 &>> unittestresults.out
 	./unittest4 &>> unittestresults.out
 	./cardtest1 &>> unittestresults.out
+	./cardtest2 &>> unittestresults.out
 	gcov dominion.c >> unittestresults.out
 	cat dominion.c.gcov >>unittestresults.out 
 
