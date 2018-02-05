@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 // Run a test
 void test (int result, char* test, char* description) {
     if (result)
@@ -12,14 +11,13 @@ void test (int result, char* test, char* description) {
 }
 
 // set up the game and player's hand with the card under test
-int setUp(struct gameState *state, int cardUnderTest, int player) {
+int setUp(struct gameState *state, int cardUnderTest, int player, int numPlayers) {
     int k[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse,
            sea_hag, tribute, smithy};
-    initializeGame(2, k, 10, state);
-
+    initializeGame(numPlayers, k, 10, state);
  
     // add adventurer to the player's deck
-    state->deck[player][state->deckCount[player]] = adventurer;
+    state->deck[player][state->deckCount[player]] = cardUnderTest;
     state->deckCount[player]++;
 
     // set up a hand for the player
@@ -77,53 +75,39 @@ void cleanUp (struct gameState *original, struct gameState *copy, int player) {
 // Check two game states are identical
 int checkIdenticalGameStates (struct gameState *first, struct gameState *second) {
     if (first->numPlayers != second->numPlayers) return 0;
-    // printf("Pass\n");
     if (first->outpostPlayed != second->outpostPlayed) return 0;
-    // printf("Pass\n");
     if (first->outpostTurn != second->outpostTurn) return 0;
-    // printf("Pass\n");
     if (first->whoseTurn != second->whoseTurn) return 0;
-    // printf("Pass\n");
     if (first->phase != second->phase) return 0;
-    // printf("Pass\n");
     if (first->numActions != second->numActions) return 0;
-    // printf("Pass\n");
     if (first->coins != second->coins) return 0;
-    // printf("Pass\n");
     if (first->numBuys != second->numBuys) return 0;
-    // printf("Pass\n");
     if (first->playedCardCount != second->playedCardCount) return 0;
-    // printf("Pass\n");
 
     int i;
     for (i = 0; i < treasure_map+1; i++) {
         if (first->supplyCount[i] != second->supplyCount[i])
             return 0;
     }
-    // printf("Pass\n");
 
     for (i = 0; i < treasure_map+1; i++) {
         if (first->embargoTokens[i] != second->embargoTokens[i])
             return 0;
     }
-    // printf("Pass\n");
 
     int j;
     for (i = 0; i < MAX_PLAYERS; i++) {
         for (j = 0; j < MAX_HAND; j++) {
             if (first->hand[i][j] != second->hand[i][j]) {
-                printf("Index that doesn't match: %i\n", j);
                 return 0;
             }
       }
     }
-    // printf("Pass\n");
 
     for (i = 0; i < MAX_PLAYERS; i++) {
         if (first->handCount[i] != second->handCount[i])
             return 0; 
     }
-    // printf("Pass\n");
 
     for (i = 0; i < MAX_PLAYERS; i++) {
         for (j = 0; j < MAX_DECK; j++) {
@@ -131,13 +115,11 @@ int checkIdenticalGameStates (struct gameState *first, struct gameState *second)
                 return 0;
       }
     }
-    // printf("Pass\n");
 
     for (i = 0; i < MAX_PLAYERS; i++) {
         if (first->deckCount[i] != second->deckCount[i])
             return 0;
     }
-    // printf("Pass\n");
 
     for (i = 0; i < MAX_PLAYERS; i++) {
         for (j = 0; j < MAX_DECK; j++) {
@@ -145,21 +127,18 @@ int checkIdenticalGameStates (struct gameState *first, struct gameState *second)
                 return 0;
       }
     }
-    // printf("Pass\n");
 
     for (i = 0; i < MAX_PLAYERS; i++) {
         if (first->discardCount[i] != second->discardCount[i]) {
             return 0;
         }
     }
-    // printf("Pass\n");
 
     for (i = 0; i < MAX_DECK; i++) {
         if (first->playedCards[i] != second->playedCards[i]) {
             return 0;
         }
     }
-    // printf("Pass\n");
 
     return 1;
 }
