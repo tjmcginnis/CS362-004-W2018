@@ -11,24 +11,58 @@ void test (int result, char* test, char* description) {
         printf("%s: FAIL -- %s\n", test, description);
 }
 
+// set up the game and player's hand with the card under test
+int setUp(struct gameState *state, int cardUnderTest, int player) {
+    int k[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse,
+           sea_hag, tribute, smithy};
+    initializeGame(2, k, 10, state);
+
+ 
+    // add adventurer to the player's deck
+    state->deck[player][state->deckCount[player]] = adventurer;
+    state->deckCount[player]++;
+
+    // set up a hand for the player
+    state->handCount[player] = 0;
+    state->discardCount[player] = 0;
+
+    int cardPos = 0;
+    state->hand[player][cardPos] = cardUnderTest;
+    state->handCount[player]++;
+    state->deckCount[player]--;
+
+    // take the top 4 cards from the player's deck and
+    // fill out the player's hand
+    int i;
+    for (i = 1; i < 5; i++) {
+        state->hand[player][i] = state->deck[player][state->deckCount[player]]; 
+        state->handCount[player]++;
+        state->deckCount[player]--;
+    }
+
+    state->whoseTurn = 0;
+
+    return cardPos;
+}
+
 // Resets the deck, hand, discard pile, numActions, and coins
 void cleanUp (struct gameState *original, struct gameState *copy, int player) {
     int i;
 
     // Reset the deck
-    for (i = 0; i < original->deckCount[player]; i++) {
+    for (i = 0; i < MAX_DECK; i++) {
         original->deck[player][i] = copy->deck[player][i];
     } 
     original->deckCount[player] = copy->deckCount[player];
 
     // Reset the hand
-    for (i = 0; i < original->handCount[player]; i++) {
+    for (i = 0; i < MAX_HAND; i++) {
         original->hand[player][i] = copy->hand[player][i];
     }
     original->handCount[player] = copy->handCount[player];
 
     // Reset the discard pile
-    for (i = 0; i < original->discardCount[player]; i++) {
+    for (i = 0; i < MAX_DECK; i++) {
         original->discard[player][i] = copy->discard[player][i];
     }
     original->discardCount[player] = copy->discardCount[player];
@@ -77,8 +111,10 @@ int checkIdenticalGameStates (struct gameState *first, struct gameState *second)
     int j;
     for (i = 0; i < MAX_PLAYERS; i++) {
         for (j = 0; j < MAX_HAND; j++) {
-            if (first->hand[i][j] != second->hand[i][j])
+            if (first->hand[i][j] != second->hand[i][j]) {
+                printf("Index that doesn't match: %i\n", j);
                 return 0;
+            }
       }
     }
     // printf("Pass\n");
