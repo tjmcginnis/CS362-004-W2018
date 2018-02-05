@@ -70,6 +70,8 @@ void testSmithy () {
     struct gameState G_copy;
     memcpy(&G_copy, &G, sizeof(struct gameState));
 
+    int expectedNumActions = G.numActions - 1;
+
     // play smithy 
     playCard(smithyPos, -1, -1, -1, &G);
 
@@ -87,7 +89,7 @@ void testSmithy () {
     test(G.discard[player][discardCount - 1] == smithy, "smithy", "it moves smithy to the discard pile");
 
     // Check numActions decremented
-    test(G.numActions == G_copy.numActions - 1, "smithy", "it decrements numActions by 1");
+    test(G.numActions == expectedNumActions, "smithy", "it decrements numActions by 1");
 
     // Reset the deck
     for (i = 0; i < G.deckCount[player]; i++) {
