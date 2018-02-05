@@ -1,5 +1,5 @@
 /**
- * cardtest2.c
+ * cardtest3.c
  *
  * Card under test: village
  * 
@@ -28,7 +28,7 @@ void testVillage () {
     printf("----- TESTING VILLAGE -----\n");
     struct gameState G;
     int player = 0;
-    int villagePos = setUp(&G, village, player); 
+    int villagePos = setUp(&G, village, player, 2); 
  
     // make a copy of the game state before testing
     struct gameState G_copy;
