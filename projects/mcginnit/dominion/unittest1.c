@@ -33,7 +33,8 @@ int array_contains (int* haystack, int needle, int haystackSize) {
     return 0;
 }
 
-int testKingdomCards () {
+void testKingdomCards () {
+    printf("----- TESTING kingdomCards() -----\n");
      // For the purpose of testing kingdomCards, we can
      // simulate the cards with regular 
     int cards[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -58,33 +59,17 @@ int testKingdomCards () {
      * all of the cards that we passed as arguments. So
      * we'll loop through each "card" in our cards array,
      * and check that the result contains that value.
-     *
-     * We'll also count the number we get correct so
-     * that we can make more useful output after the
-     * tests have run.
      */
     int i;
-    int numCorrect;
     for (i = 0; i < 10; i++) {
         if (array_contains(result, cards[i], 10)) {
             printf("kingdomCards(): PASS result contains test value %i\n", cards[i]);
-            numCorrect++;
             continue;
         }
         printf("kingdomCards(): FAIL result missing test value %i\n", cards[i]);
     }
 
     free(result);
-
-    // If 10 correct, then all tests passed.
-    if (numCorrect == 10) {
-        printf("kingdomCards(): STATUS: Green... all tests passed\n");
-        return 1;
-    }
-
-    // Otherwise, 1 or more tests failed.
-    printf("kingdomCards(): STATUS: Red... 1 or more tests failed\n");
-    return 0;
 }
 
 int main (int argc, char** argv) {

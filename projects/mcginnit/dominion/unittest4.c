@@ -23,6 +23,7 @@
  */
 
 void testFullDeckCount () {
+    printf("----- TESTING fullDeckCount() -----\n");
     struct gameState G;
     int k[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse,
            sea_hag, tribute, smithy};
@@ -36,14 +37,11 @@ void testFullDeckCount () {
     // verify isGameOver committed no side effects
     struct gameState G_copy = G;
 
-    int failures = 0;
-
     // None of the given card in player's deck, hand, or discard pile
     if (fullDeckCount(0, adventurer, &G) == 0) {
         printf("fullDeckCount(): PASS adventurer count 0\n");
     } else {
         printf("fullDeckCount(): FAIL adventurer count 0\n");
-        failures++;
     }
 
     // 1 of card in deck, 0 in hand, 0 in discard
@@ -54,7 +52,6 @@ void testFullDeckCount () {
         printf("fullDeckCount(): PASS adventurer count 1\n");
     } else {
         printf("fullDeckCount(): FAIL adventurer count 1\n");
-        failures++;
     }
 
     // 1 of card in deck, 1 in hand, 0 in discard
@@ -65,7 +62,6 @@ void testFullDeckCount () {
         printf("fullDeckCount(): PASS adventurer count 2\n");
     } else {
         printf("fullDeckCount(): FAIL adventurer count 2\n");
-        failures++;
     }
 
     // 1 of card in deck, 1 in hand, 1 in discard
@@ -76,7 +72,6 @@ void testFullDeckCount () {
         printf("fullDeckCount(): PASS adventurer count 3\n");
     } else {
         printf("fullDeckCount(): FAIL adventurer count 3\n");
-        failures++;
     }
 
     // Undo the changes we made in the tests
@@ -92,14 +87,7 @@ void testFullDeckCount () {
         printf("fullDeckCount(): PASS no game state modified\n");
     } else {
         printf("fullDeckCount(): FAIL game state modified\n");
-        failures++;
     }
-
-    if (!failures)
-        printf("fullDeckCount(): STATUS: Green... all tests passed\n");
-
-    if (failures)
-        printf("fullDeckCount(): STATUS: RED... 1 or more tests failed\n");
 }
 
 int main (int argc, char** argv) {

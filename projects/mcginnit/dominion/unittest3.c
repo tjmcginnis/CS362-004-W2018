@@ -18,6 +18,7 @@
  */
 
 void testWhoseTurn () {
+    printf("----- TESTING whoseTurn() -----\n");
     struct gameState G;
     int k[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse,
            sea_hag, tribute, smithy};
@@ -31,15 +32,12 @@ void testWhoseTurn () {
     // verify isGameOver committed no side effects
     struct gameState G_copy = G;
 
-    int failures = 0;
-
     // On initialization, it should be player 1's turn
     // Player 1 is represented by index 0
     if (whoseTurn(&G) == 0) {
         printf("whoseTurn(): PASS returns 0 when no turns have been taken\n");
     } else {
         printf("whoseTurn(): FAIL returns 0 when no turns have been taken\n");
-        failures++;
     }
 
     G.whoseTurn = 1;
@@ -49,7 +47,6 @@ void testWhoseTurn () {
         printf("whoseTurn(): PASS returns 1 when whoseTurn set to 1\n");
     } else {
         printf("whoseTurn(): FAIL returns 1 when whoseTurn set to 1\n");
-        failures++;
     }
 
     // Set whoseTurn back to 0 before comparing original game state
@@ -60,14 +57,7 @@ void testWhoseTurn () {
         printf("whoseTurn(): PASS no game state modified\n");
     } else {
         printf("whoseTurn(): FAIL game state modified\n");
-        failures++;
     }
-
-    if (!failures)
-        printf("whoseTurn(): STATUS: Green... all tests passed\n");
-
-    if (failures)
-        printf("whoseTurn(): STATUS: RED... 1 or more tests failed\n");
 }
 
 int main (int argc, char** argv) {

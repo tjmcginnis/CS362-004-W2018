@@ -40,6 +40,7 @@ void setProvinceSupplyCount (struct gameState *state, int count) {
 
 void testIsGameOver ()
 {
+    printf("----- TESTING isGameOver() -----\n");
     struct gameState G;
     int k[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse,
            sea_hag, tribute, smithy};
@@ -53,15 +54,12 @@ void testIsGameOver ()
     // verify isGameOver committed no side effects
     struct gameState G_copy = G;
 
-    int failures = 0;
-
     // Test isGameOver returns 1 if supplyCount[province] is 0
     setProvinceSupplyCount(&G, 0); 
     if (isGameOver(&G)) {
         printf("isGameOver(): PASS returns 1 if supplyCount[province] is 0\n");
     } else {
         printf("isGameOver(): FAIL returns 1 if supplyCount[province] is 0\n");
-        failures++;
     }
 
     // Test isGameOver returns 0 if supplyCount[province] is greater than 0
@@ -70,7 +68,6 @@ void testIsGameOver ()
         printf("isGameOver(): PASS returns 0 if supplyCount[province] is greater than 0\n");
     } else {
         printf("isGameOver(): FAIL returns 0 if supplyCount[province] is greater than 0\n");
-        failures++;
     }
 
     int originalCountAdventurer = G.supplyCount[adventurer];
@@ -87,7 +84,6 @@ void testIsGameOver ()
         printf("isGameOver(): PASS returns 1 if supplyCount[CARD] is 0 for three cards\n");
     } else {
         printf("isGameOver(): FAIL returns 0 if supplyCount[CARD] is 0 for three cards\n");
-        failures++;
     }
 
     int originalCountEmbargo = G.supplyCount[embargo];
@@ -97,7 +93,6 @@ void testIsGameOver ()
         printf("isGameOver(): PASS returns 1 if supplyCount[CARD] is 0 for more than three cards\n");
     } else {
         printf("isGameOver(): FAIL returns 0 if supplyCount[CARD] is 0 for more than three cards\n");
-        failures++;
     }
 
     G.supplyCount[adventurer] = originalCountAdventurer;
@@ -108,7 +103,6 @@ void testIsGameOver ()
         printf("isGameOver(): PASS returns 0 if supplyCount[CARD] is 0 for two cards\n");
     } else {
         printf("isGameOver(): FAIL returns 0 if supplyCount[CARD] is 0 for two cards\n");
-        failures++;
     }
 
     G.supplyCount[gardens] = originalCountGardens;
@@ -118,7 +112,6 @@ void testIsGameOver ()
         printf("isGameOver(): PASS returns 0 if supplyCount[CARD] is 0 for one card\n");
     } else {
         printf("isGameOver(): FAIL returns 0 if supplyCount[CARD] is 0 for one card\n");
-        failures++;
     }
 
     G.supplyCount[embargo] = originalCountEmbargo;
@@ -128,7 +121,6 @@ void testIsGameOver ()
         printf("isGameOver(): PASS returns 0 if supplyCount[CARD] is 0 for no cards\n");
     } else {
         printf("isGameOver(): FAIL returns 0 if supplyCount[CARD] is 0 for no cards\n");
-        failures++;
     }
 
     // Set G's supply count for province back to original value
@@ -139,14 +131,7 @@ void testIsGameOver ()
         printf("isGameOver(): PASS no additional game state modified\n");
     } else {
         printf("isGameOver(): FAIL additional game state modified\n");
-        failures++;
     }
-
-    if (!failures)
-        printf("isGameOver(): STATUS: Green... all tests passed\n");
-
-    if (failures)
-        printf("isGameOver(): STATUS: RED... 1 or more tests failed\n");
 }
 
 int main (int argc, char** argv) {
