@@ -44,7 +44,7 @@ int checkCardEffect(struct gameState* post, int p) {
     //          p, pre.handCount[p], pre.discardCount[p], pre.numActions, preHandTreasureCount);
 
     //printf("playCard POST: p %d HC %d DiC %d nA %d ht %d\n",
-    //          p, pre.handCount[p], pre.discardCount[p], pre.numActions, postHandTreasureCount);
+    //          p, post->handCount[p], post->discardCount[p], post->numActions, postHandTreasureCount);
 
 
     assert_safe(r, 0, "playCard returned 0");
