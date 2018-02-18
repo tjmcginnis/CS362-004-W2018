@@ -88,7 +88,7 @@ int main(int argc, char** argv) {
         }
 
         discardCount = floor(Random() * MAX_DECK);
-        G.discardCount[p] = floor(Random() * MAX_DECK);
+        G.discardCount[p] = discardCount;
 
         // put a random number of treasure cards in the discard pile
         numTreasureDiscard = floor(Random() * discardCount);
