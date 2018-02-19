@@ -66,7 +66,7 @@ randomtestadventurer: randomtestadventurer.c dominion.o rngs.o
 	gcc -o randomtestadventurer -g randomtestadventurer.c dominion.o rngs.o $(CFLAGS)
 
 randomtestcard1.out: randomtestcard1
-	./randomtestcard1 &> randomtestcard1.out
+	./randomtestcard1 > randomtestcard1.out 2>&1
 	gcov dominion.c >> randomtestcard1.out
 	cat dominion.c.gcov >> randomtestcard1.out
 
