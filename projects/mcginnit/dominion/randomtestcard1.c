@@ -1,3 +1,17 @@
+/**
+ * randomtestcard1.c
+ *
+ * Card under test: village
+ *
+ * What it does:
+ *  +1 Card
+ *  +2 Actions
+ *
+ * Include the following lines in your makefile:
+ *
+ * randomtestcard1: randomtestcard1.c dominion.o rngs.o
+ * gcc -o randomtestcard1 -g randomtestcard1.c dominion.o rngs.o $(CFLAGS)
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

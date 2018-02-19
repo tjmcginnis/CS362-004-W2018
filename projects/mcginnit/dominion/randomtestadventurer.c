@@ -1,7 +1,22 @@
+/**
+ * randomtestadventurer.c
+ *
+ * Card under test: adventurer
+ *
+ * What it does:
+ *  Reveal cards from your deck
+ *  until you reveal 2 Treasure cards.
+ *  Put those Treasure cards into your hand
+ *  and discard the other revealed cards.
+ *
+ * Include the following lines in your makefile:
+ *
+ * randomtestadventurer: randomtestadventurer.c dominion.o rngs.o
+ * gcc -o randomtestadventurer -g randomtestadventurer.c dominion.o rngs.o $(CFLAGS)
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <assert.h>
 #include <math.h>
 #include "rngs.h"
 #include "dominion.h"
@@ -13,7 +28,6 @@ int assert_safe(int a, int b, char* message) {
     }
     return 0;
 }
-
 
 int checkCardEffect(struct gameState* post, int p) {
     struct gameState pre;
@@ -45,7 +59,6 @@ int checkCardEffect(struct gameState* post, int p) {
 
     //printf("playCard POST: p %d HC %d DiC %d nA %d ht %d\n",
     //          p, post->handCount[p], post->discardCount[p], post->numActions, postHandTreasureCount);
-
 
     assert_safe(r, 0, "playCard returned 0");
     assert_safe(postHandTreasureCount, preHandTreasureCount + 2, "two treasure cards added to the hand");

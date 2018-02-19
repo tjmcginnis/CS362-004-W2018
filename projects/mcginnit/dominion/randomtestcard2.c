@@ -1,3 +1,20 @@
+/**
+ * randomtestcard2.c
+ *
+ * Card under test: council room
+ *
+ * What it does:
+ *  +4 Cards
+ *  +1 Buy
+ *
+ *  Each other player draws a
+ *  card.
+ *
+ *  Include the following lines in your makefile:
+ *
+ *  randomtestcard2: randomtestcard2.c dominion.o rngs.o
+ *  gcc -o randomtestcard2 -g randomtestcard2.c dominion.o rngs.o $(CFLAGS)
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
