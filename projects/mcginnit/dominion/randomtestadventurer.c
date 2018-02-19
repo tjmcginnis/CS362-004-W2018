@@ -70,7 +70,7 @@ int main(int argc, char** argv) {
     int p;
     struct gameState G;
 
-    printf("randomTestAdventurer: RUNNING\n");
+    printf("randomtestadventurer: RUNNING\n");
 
     SelectStream(0);
     PutSeed(1);
@@ -139,7 +139,7 @@ int main(int argc, char** argv) {
         checkCardEffect(&G, p);
     }
 
-    printf("randomTestAdventurer: ENDING\n");
+    printf("randomtestadventurer: ENDING\n");
     
     return 0;
 }

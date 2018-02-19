@@ -54,7 +54,7 @@ int main(int argc, char** argv) {
     int p;
     struct gameState G;
 
-    printf("randomTest: RUNNING\n");
+    printf("randomtestcard1: RUNNING\n");
 
     SelectStream(0);
     PutSeed(1);
@@ -90,7 +90,7 @@ int main(int argc, char** argv) {
         checkCardEffect(&G, p);
     }
 
-    printf("randomTest: ENDING\n");
+    printf("randomtestcard1: ENDING\n");
     
     return 0;
 }
