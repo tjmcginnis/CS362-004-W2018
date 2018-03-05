@@ -1,0 +1,16 @@
+/tmp/ccg2KDAW.o: In function `checkDrawCard':
+testDrawCard.c:(.text+0x58): undefined reference to `drawCard'
+/tmp/ccg2KDAW.o: In function `main':
+testDrawCard.c:(.text+0x456): undefined reference to `SelectStream'
+testDrawCard.c:(.text+0x460): undefined reference to `PutSeed'
+testDrawCard.c:(.text+0x493): undefined reference to `Random'
+testDrawCard.c:(.text+0x4a8): undefined reference to `floor'
+testDrawCard.c:(.text+0x4c7): undefined reference to `Random'
+testDrawCard.c:(.text+0x4d0): undefined reference to `floor'
+testDrawCard.c:(.text+0x4df): undefined reference to `Random'
+testDrawCard.c:(.text+0x4f4): undefined reference to `floor'
+testDrawCard.c:(.text+0x514): undefined reference to `Random'
+testDrawCard.c:(.text+0x529): undefined reference to `floor'
+testDrawCard.c:(.text+0x549): undefined reference to `Random'
+testDrawCard.c:(.text+0x55e): undefined reference to `floor'
+collect2: error: ld returned 1 exit status

@@ -1,0 +1,121 @@
+Bug #1
+==============================
+
+Title: Smithy does not add three cards
+
+Class: Serious Bug
+
+Date: 3/4/2018           
+Reported By: Tyler McGinnis 
+Email: mcginnit@oregonstate.edu 
+
+
+Product: dominion
+Platform: Ubuntu                Version: 16.04 LTS
+Platform: CentOS (Oregon State flip server)
+Shell: bash
+
+Is it reproducible: Yes
+
+
+Description
+===========
+When smithy is played, three cards should be drawn from the current player's
+deck and placed in his hand, however it appears that the number of cards in
+the player's deck is not as expected after smithy is played.
+
+This error arose from a game state containing a valid current player, deck,
+deckCount, hand, handCount, discard, discardCount, numActions, and phase.
+
+To add some context, this error arose specifically from calling the playCard
+function with 0 as the first argument (smithy is in the first position of
+the hand) and a valid gameState, and checking that the current player's 
+deckCount is three less after calling the function than it was prior to calling
+the function.
+
+Error Messages:
+From cardtest1_mcginnit.c:
+  smithy: FAIL -- it has 3 less cards in the deck
+
+
+Steps to Produce/Reproduce
+--------------------------
+From terminal:
+make cardtest1_mcginnit
+./cardtest1_mcginnit
+
+
+Expected Results
+----------------
+Expected the current player's deckCount to be decremented by 3 after the call
+to playCard.
+
+Actual Results
+--------------
+The current player's handCount was not decremented by 3 after the call to
+playCard.
+
+
+Bug #2
+==============================
+
+Title: Village does not increment numActions by 2
+
+Class: Serious Bug
+
+Date: 3/4/2018           
+Reported By: Tyler McGinnis 
+Email: mcginnit@oregonstate.edu 
+
+
+Product: dominion
+Platform: Ubuntu                Version: 16.04 LTS
+Platform: CentOS (Oregon State flip server)
+Shell: bash
+
+Is it reproducible: Yes
+
+
+Description
+===========
+When the Village card is played, gameState.numActions should be incremented
+by 2.
+
+This error arose from a game state containing a valid current player, deck,
+deckCount, hand, handCount, discard, discardCount, numActions, and phase.
+
+This error arose specifically from calling the playCard function with 0 as the 
+first argument (village is in the first position in the hand) and a valid
+gameState, and checking that gameState.numActions was 2 greater after calling
+playCard than it was before calling playCard.
+
+Error Messages:
+From cardtest3_mcginnit.c:
+  village: FAIL -- it adds two actions
+From randomtestcard1_mcginnit.c:
+  Failing: gain 2 actions
+
+This error happens repeatedly with both unit and random tests.
+
+
+Steps to Produce/Reproduce
+--------------------------
+From terminal:
+make randomtestcard1_mcginnit
+./randomtestcard1_mcginnit
+
+OR
+
+make cardtest3_mcginnit
+./cardtest3_mcginnit
+
+
+Expected Results
+----------------
+The numActions property of the gameState to be incremented by 2 after the call
+to playCard.
+
+Actual Results
+--------------
+The numActions property of the gameState was not incremented by 2.
+
