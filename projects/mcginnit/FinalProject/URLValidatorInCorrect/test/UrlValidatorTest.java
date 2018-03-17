@@ -1,7 +1,5 @@
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class UrlValidatorTest {
 
     @Test
@@ -86,6 +84,11 @@ public class UrlValidatorTest {
             );
             this.testSafe(testUrl, pair.isValid());
         }
+    }
+
+    @Test
+    public void testIsValidProgrammatic() {
+        // test all possible values
     }
 
     private void testSafe(String testUrl, boolean isValid) {
