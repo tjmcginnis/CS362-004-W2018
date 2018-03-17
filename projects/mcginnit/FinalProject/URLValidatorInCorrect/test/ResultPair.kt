@@ -1,1 +1,0 @@
-class ResultPair(var testValue: String, var isValid: Boolean) {}

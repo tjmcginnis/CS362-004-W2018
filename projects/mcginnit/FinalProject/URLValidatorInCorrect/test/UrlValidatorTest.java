@@ -16,137 +16,113 @@ public class UrlValidatorTest {
             new ResultPair("http://google.com/../", false)
         };
 
+        System.out.println("Manual Testing");
         for (int i = 0; i < testUrls.length; i++) {
             ResultPair pair = testUrls[i];
-            String testUrl = pair.getTestValue();
-            System.out.print(String.format(
-                    "Manual testing\tURL\t%s\t\t", pair.getTestValue())
-            );
-            this.testSafe(testUrl, pair.isValid(), false);
+            String testUrl = pair.item;
+            this.testSafe(testUrl, pair.valid, false);
         }
     }
 
     @Test
     public void testIsValidUrlSchemesPartitioning() {
+        System.out.println("Partition testing URL Schemes");
         for (int i = 0; i < this.testUrlScheme.length; i++) {
             ResultPair pair = this.testUrlScheme[i];
-            String testUrl = pair.getTestValue() + "www.google.com";
-            System.out.print(String.format(
-                    "Partition testing\tURL Scheme\t%s\t\t", pair.getTestValue())
-            );
-            this.testSafe(testUrl, pair.isValid(), false);
+            String testUrl = pair.item + "www.google.com";
+            this.testSafe(testUrl, pair.valid, false);
         }
     }
 
     @Test
     public void testIsValidUrlAuthoritiesPartition() {
+        System.out.println("Partition testing URL Authorities");
         for (int i = 0; i < this.testUrlAuthority.length; i++) {
             ResultPair pair = this.testUrlAuthority[i];
-            String testUrl = "http://" + pair.getTestValue();
-            System.out.print(String.format(
-                    "Partition testing\tURL Authority\t%s\t\t", pair.getTestValue())
-            );
-            this.testSafe(testUrl, pair.isValid(), false);
+            String testUrl = "http://" + pair.item;
+            this.testSafe(testUrl, pair.valid, false);
         }
     }
 
     @Test
     public void testIsValidUrlPortsPartition() {
+        System.out.println("Partition testing URL Ports");
         for (int i = 0; i < this.testUrlPort.length; i++) {
             ResultPair pair = this.testUrlPort[i];
-            String testUrl = "http://www.google.com" + pair.getTestValue();
-            System.out.print(String.format(
-                    "Partition testing\tURL Port\t%s\t\t", pair.getTestValue())
-            );
-            this.testSafe(testUrl, pair.isValid(), false);
+            String testUrl = "http://www.google.com" + pair.item;
+            this.testSafe(testUrl, pair.valid, false);
         }
     }
 
     @Test
     public void testIsValidUrlPathsPartition() {
+        System.out.println("Partition testing URL Paths");
         for (int i = 0; i < this.testUrlPath.length; i++) {
             ResultPair pair = this.testUrlPath[i];
-            String testUrl = "http://www.google.com" + pair.getTestValue();
-            System.out.print(String.format(
-                    "Partition testing\tURL Path\t%s\t\t", pair.getTestValue())
-            );
-            this.testSafe(testUrl, pair.isValid(), false);
+            String testUrl = "http://www.google.com" + pair.item;
+            this.testSafe(testUrl, pair.valid, false);
         }
     }
 
     @Test
     public void testIsValidURLQueryStringsPartition() {
+        System.out.println("Partition testing URL Query");
         for (int i = 0; i < this.testUrlQuery.length; i++) {
             ResultPair pair = this.testUrlQuery[i];
-            String testUrl = "http://www.google.com" + pair.getTestValue();
-            System.out.print(String.format(
-                    "Partition testing\tURL Query\t%s\t\t", pair.getTestValue())
-            );
-            this.testSafe(testUrl, pair.isValid(), false);
+            String testUrl = "http://www.google.com" + pair.item;
+            this.testSafe(testUrl, pair.valid, false);
         }
     }
 
     @Test
     public void testIsValidProgrammatic() {
-        int[] testFragmentIndices = {0, 0, 0, 0, 0};
-
-        ResultPair[][] testFragments = {
-            this.testUrlScheme,
-            this.testUrlAuthority,
-            this.testUrlPort,
-            this.testUrlPath,
-            this.testUrlQuery
-        };
-
-        int[] testFragmentLengths = {
-            this.testUrlScheme.length,
-            this.testUrlAuthority.length,
-            this.testUrlPort.length,
-            this.testUrlPath.length,
-            this.testUrlQuery.length
-        };
-
-        int numTests = 1;
-        for (int i = 0; i < testFragmentLengths.length; i++) {
-            numTests *= testFragmentLengths[i];
-        }
-
-        int counter = 0;
-        while (counter < numTests) {
-            // TODO: Increment test fragment indices appropriately
-
-            String testUrl = "";
-            boolean expectedResult = true;
-            for (int i = 0; i < testFragments.length; i++) {
-                ResultPair fragment = testFragments[i][testFragmentIndices[i]];
-                testUrl += fragment.getTestValue();
-                expectedResult &= fragment.isValid();
+        System.out.println("Programmatic Testing");
+        for (int i = 0; i < this.testUrlScheme.length; i++) {
+            for (int j = 0; j < this.testUrlAuthority.length; j++) {
+                for (int k = 0; k < this.testUrlPort.length; k++) {
+                    for (int l = 0; l < this.testUrlPath.length; l++) {
+                        for (int m = 0; m < this.testUrlQuery.length; m++) {
+                            String testUrl = this.testUrlScheme[i].item +
+                                    this.testUrlAuthority[j].item +
+                                    this.testUrlPort[k].item +
+                                    this.testUrlPath[l].item +
+                                    this.testUrlQuery[m].item;
+                            boolean result = this.testUrlScheme[i].valid &&
+                                    this.testUrlAuthority[j].valid &&
+                                    this.testUrlPort[k].valid &&
+                                    this.testUrlPath[l].valid &&
+                                    this.testUrlQuery[m].valid;
+                            this.testSafe(testUrl, result, false);
+                        }
+                    }
+                }
             }
-
-            System.out.print(String.format(
-                    "Programmatic testing\t%s\t\t", testUrl)
-            );
-            this.testSafe(testUrl, expectedResult, false);
-
-            counter++;
         }
     }
 
     private void testSafe(String testUrl, boolean isValid, boolean isNoisy) {
+        boolean result;
         UrlValidator urlVal = new UrlValidator(
                 null,
                 null,
                 UrlValidator.ALLOW_ALL_SCHEMES
         );
 
-        System.out.print("Expected: " + isValid + "\t");
+        String output = String.format("Testing: %s", testUrl);
+        output += "\tExpecting: " + isValid;
 
         try {
-            System.out.println("Result: " + urlVal.isValid(testUrl));
+            result = urlVal.isValid(testUrl);
+            output += "\tResult: " + result;
+            if (isNoisy || (result != isValid)) {
+                System.out.println(output);
+            }
         } catch (Exception e) {
-            System.out.println("Exception thrown: " + e.getMessage());
+            output += "\tException thrown: " + e.getMessage();
+            System.out.println(output);
         } catch (Error e) {
-            System.out.println("Error raised: " + e.getMessage());
+            output += "\tError raised: " + e.getMessage();
+            System.out.println(output);
         }
     }
 
