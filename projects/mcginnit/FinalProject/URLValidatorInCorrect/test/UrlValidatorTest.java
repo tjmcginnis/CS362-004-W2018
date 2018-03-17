@@ -6,20 +6,26 @@ public class UrlValidatorTest {
 
     @Test
     public void testIsValidManual() {
-        UrlValidator urlVal = new UrlValidator(
-                null,
-                null,
-                UrlValidator.ALLOW_ALL_SCHEMES
-        );
-        assertEquals(true, urlVal.isValid("http://google.com"));
-        // assertEquals(true, urlVal.isValid("ftp://192.168.10.10"));  // BUG: Exception raised
-        // assertEquals(true, urlVal.isValid("http://google.com:80")); // BUG: Fails but should pass
-        assertEquals(true, urlVal.isValid("http://google.com/test"));
-        assertEquals(true, urlVal.isValid("http://google.com/test?q=testing"));
-        // assertEquals(false, urlVal.isValid("abcd://www.google.com/"));  // BUG: Exception raised
-        // assertEquals(false, urlVal.isValid("http://abcd"));  // BUG: Fails but should pass
-        assertEquals(false, urlVal.isValid("http://google.com:80b"));
-        assertEquals(false, urlVal.isValid("http://google.com/../"));
+        ResultPair[] testUrls = {
+            new ResultPair("http://google.com", true),
+            new ResultPair("ftp://192.168.10.10", true),
+            new ResultPair("http://google.com:80", true),
+            new ResultPair("http://google.com/test", true),
+            new ResultPair("http://google.com/test?q=testing", true),
+            new ResultPair("abcd://www.google.com/", false),
+            new ResultPair("http://abcd", false),
+            new ResultPair("http://google.com:80b", false),
+            new ResultPair("http://google.com/../", false)
+        };
+
+        for (int i = 0; i < testUrls.length; i++) {
+            ResultPair pair = testUrls[i];
+            String testUrl = pair.getTestValue();
+            System.out.print(String.format(
+                    "Manual testing\tURL\t%s\t\t", pair.getTestValue())
+            );
+            this.testSafe(testUrl, pair.isValid());
+        }
     }
 
     @Test
