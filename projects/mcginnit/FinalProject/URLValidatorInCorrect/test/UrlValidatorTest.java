@@ -22,7 +22,7 @@ public class UrlValidatorTest {
             System.out.print(String.format(
                     "Manual testing\tURL\t%s\t\t", pair.getTestValue())
             );
-            this.testSafe(testUrl, pair.isValid());
+            this.testSafe(testUrl, pair.isValid(), false);
         }
     }
 
@@ -34,7 +34,7 @@ public class UrlValidatorTest {
             System.out.print(String.format(
                     "Partition testing\tURL Scheme\t%s\t\t", pair.getTestValue())
             );
-            this.testSafe(testUrl, pair.isValid());
+            this.testSafe(testUrl, pair.isValid(), false);
         }
     }
 
@@ -46,7 +46,7 @@ public class UrlValidatorTest {
             System.out.print(String.format(
                     "Partition testing\tURL Authority\t%s\t\t", pair.getTestValue())
             );
-            this.testSafe(testUrl, pair.isValid());
+            this.testSafe(testUrl, pair.isValid(), false);
         }
     }
 
@@ -58,7 +58,7 @@ public class UrlValidatorTest {
             System.out.print(String.format(
                     "Partition testing\tURL Port\t%s\t\t", pair.getTestValue())
             );
-            this.testSafe(testUrl, pair.isValid());
+            this.testSafe(testUrl, pair.isValid(), false);
         }
     }
 
@@ -70,7 +70,7 @@ public class UrlValidatorTest {
             System.out.print(String.format(
                     "Partition testing\tURL Path\t%s\t\t", pair.getTestValue())
             );
-            this.testSafe(testUrl, pair.isValid());
+            this.testSafe(testUrl, pair.isValid(), false);
         }
     }
 
@@ -82,16 +82,57 @@ public class UrlValidatorTest {
             System.out.print(String.format(
                     "Partition testing\tURL Query\t%s\t\t", pair.getTestValue())
             );
-            this.testSafe(testUrl, pair.isValid());
+            this.testSafe(testUrl, pair.isValid(), false);
         }
     }
 
     @Test
     public void testIsValidProgrammatic() {
-        // test all possible values
+        int[] testFragmentIndices = {0, 0, 0, 0, 0};
+
+        ResultPair[][] testFragments = {
+            this.testUrlScheme,
+            this.testUrlAuthority,
+            this.testUrlPort,
+            this.testUrlPath,
+            this.testUrlQuery
+        };
+
+        int[] testFragmentLengths = {
+            this.testUrlScheme.length,
+            this.testUrlAuthority.length,
+            this.testUrlPort.length,
+            this.testUrlPath.length,
+            this.testUrlQuery.length
+        };
+
+        int numTests = 1;
+        for (int i = 0; i < testFragmentLengths.length; i++) {
+            numTests *= testFragmentLengths[i];
+        }
+
+        int counter = 0;
+        while (counter < numTests) {
+            // TODO: Increment test fragment indices appropriately
+
+            String testUrl = "";
+            boolean expectedResult = true;
+            for (int i = 0; i < testFragments.length; i++) {
+                ResultPair fragment = testFragments[i][testFragmentIndices[i]];
+                testUrl += fragment.getTestValue();
+                expectedResult &= fragment.isValid();
+            }
+
+            System.out.print(String.format(
+                    "Programmatic testing\t%s\t\t", testUrl)
+            );
+            this.testSafe(testUrl, expectedResult, false);
+
+            counter++;
+        }
     }
 
-    private void testSafe(String testUrl, boolean isValid) {
+    private void testSafe(String testUrl, boolean isValid, boolean isNoisy) {
         UrlValidator urlVal = new UrlValidator(
                 null,
                 null,
