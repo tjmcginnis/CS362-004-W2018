@@ -40,20 +40,27 @@ public class UrlValidatorTest {
 
     @Test
     public void testIsValidUrlSchemesPartitioning() {
-
-
         String[] validUrlSchemes = {"http://", "https://", "ftp://"};
         String[] invalidUrlSchemes = {"abcd://", "http:/", "://"};
 
         for (int i = 0; i < validUrlSchemes.length; i++) {
             String testUrl = validUrlSchemes[i] + "www.google.com";
-            System.out.print("Testing URL Scheme: " + validUrlSchemes[i] + ", ");
-            System.out.print("Expecting result: true, ");
-            this.testSafe(testUrl);
+            this.testPartitionSafe(
+                    testUrl,
+                    "URL Scheme",
+                    validUrlSchemes[i],
+                    "true"
+            );
         }
 
         for (int i = 0; i < invalidUrlSchemes.length; i++) {
-            //assertEquals(true, urlVal.isValid(invalidUrlSchemes[i] + "www.google.com"));
+            String testUrl = invalidUrlSchemes[i] + "www.google.com";
+            this.testPartitionSafe(
+                    testUrl,
+                    "URL Scheme",
+                    validUrlSchemes[i],
+                    "false"
+            );
         }
     }
 
@@ -81,12 +88,19 @@ public class UrlValidatorTest {
         String[] invalidUrlQueryStrings = {};
     }
 
-    private void testSafe(String testUrl) {
+    private void testPartitionSafe(String testUrl,
+                                   String partition,
+                                   String testVal,
+                                   String expectedResult) {
         UrlValidator urlVal = new UrlValidator(
                 null,
                 null,
                 UrlValidator.ALLOW_ALL_SCHEMES
         );
+
+        System.out.print("Testing " + partition + ": ");
+        System.out.print(testVal + ", ");
+        System.out.print("Expecting result: " + expectedResult + ", ");
 
         try {
             System.out.println("Result: " + urlVal.isValid(testUrl));
